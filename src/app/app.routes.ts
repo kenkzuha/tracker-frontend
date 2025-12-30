@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
+import { Register } from './register/register';
+export const routes: Routes = [
+  { path: '', component: Register},
+  { path: 'register', component: Register },
+];
 
-export const routes: Routes = [];
+
