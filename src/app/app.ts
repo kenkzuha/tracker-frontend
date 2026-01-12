@@ -2,12 +2,11 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Register } from "./register/register";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Register],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

@@ -1,0 +1,15 @@
+.container {
+  background: red;
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    background: green;
+  }
+}
+
+@media screen and (min-width: 3000px) {
+  .container {
+    max-width: 80vw;
+  }
+}

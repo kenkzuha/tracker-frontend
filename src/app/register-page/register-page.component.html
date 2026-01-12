@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="register">
+    <h2>Register</h2>
+    <div>{{ users() | number }}</div>
+    <form #regForm="ngForm" (ngSubmit)="register()">
+      <div>
+        <label>Email:</label>
+        <input type="email" name="email" [(ngModel)]="registerUser.email" required email />
+      </div>
+      <div>
+        <label>Username:</label>
+        <input type="text" name="user" [(ngModel)]="registerUser.user" required />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="registerUser.pass"
+          ngModel
+          required
+          minlength="6"
+        />
+      </div>
+      <button type="submit" class="btn" [disabled]="!regForm.valid">Register</button>
+    </form>
+  </div>
+</div>
