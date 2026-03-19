@@ -1,0 +1,40 @@
+<div class="utama">
+  <div class="card">
+    <h1>Signup</h1>  
+    <form [formGroup]="signupData" (ngSubmit)="onSubmit()" class="form-floating" >
+      <div class="form-floating ">
+        <input type="text" class="form-control username" id="floatingInput" placeholder="name@example.com" formControlName="username">
+        <label for="floatingInput">Username</label>
+        @if (signupData.get('username')?.invalid && signupData.get('username')?.touched) {
+      <span class="error">Username is required (min 3 characters)</span>
+    }
+      </div>
+      <div class="form-floating mb-3">
+        <input  type="email" class="form-control email" id="floatingInput" placeholder="name@example.com" formControlName="email">
+        <label for="floatingInput">Email address</label>
+        @if (signupData.get('email')?.invalid && signupData.get('email')?.touched) {
+      <span class="error">Email is required and must be valid</span>
+    }
+      </div>
+      <div class="form-floating">
+        <input  type="password" class="form-control password" id="floatingPassword" placeholder="Password" formControlName="password">
+        <label for="floatingPassword">Password</label>
+        @if (signupData.get('password')?.invalid && signupData.get('password')?.touched) {
+      <span class="error">Password is required (min 6 characters)</span>
+    }
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control password" id="confirmPassword" placeholder="Password" formControlName="confirmPassword">
+        @if (signupData.get('confirmPassword')?.invalid && signupData.get('confirmPassword')?.touched){
+          <span class="error">Please type your password again to confirm</span>
+        }
+        @if(signupData.hasError('passwordMismatch') && signupData.get('confirmPassword')?.touched){
+          <span class="error">Passwords do not match</span>
+        }
+        <label for="confirmPassword">Confirm Password</label>
+      </div>
+
+      <button class="btn btn-primary submitBtn" type="submit" [disabled]="signupData.invalid">Submit</button>
+    </form>
+  </div>
+</div>  
