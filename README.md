@@ -1,48 +1,73 @@
-# 📊 Portfolio Tracker
+# ChainFolio (Frontend)
 
 A modern, lightweight portfolio tracking web application designed to help users monitor their crypto and/or multi-asset investments in one place.
 
 ---
 
-## 🚀 Features
+## Features
 
-- 📈 Real-time portfolio overview
-- 💰 Track assets, transactions, and balances
-- 📊 Performance analytics (profit/loss, ROI)
-- 🕒 Historical snapshots for portfolio growth tracking
-- 🔐 User authentication (login/signup)
-- 🌐 Responsive UI for desktop and mobile
-- ⚡ Fast and minimal interface
-
----
-
-## 🧠 Motivation
-
-Managing multiple investments across exchanges and wallets can be difficult. This project aims to simplify portfolio tracking by providing a centralized dashboard with clear insights into asset performance and history.
+- Real-time portfolio overview
+- Track assets, transactions, and balances
+- Performance analytics (profit/loss, ROI)
+- Historical snapshots for portfolio growth tracking
+- User authentication (login/signup)
+- Responsive UI for desktop and mobile
+- Fast and minimal interface
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Node.js / Django (depending on implementation)
-- **Database:** PostgreSQL / Supabase
-- **Auth:** Supabase Auth / Django Auth
-- **APIs:** Binance API (optional integration)
+- **Frontend:** Angular
+- **Backend:** NestJS
+- **Database:** PostgreSQL
+- **Auth:** NestJS Authentication
+- **APIs:** Binance API
 - **Version Control:** Git & GitHub
 
 ---
 
-## 📦 Project Structure
+## Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/portfolio-tracker.git
+cd portfolio-tracker
+```
+
+### 2. Install dependencies
+```bash
+# Checks if Angular is installed
+ng version
+
+# If not installed
+npm i @angular/cli
+
+# Install the dependencies
+npm install
+```
+
+### 3. Clone the Backend Repository
+The backend service must be running for authentication and core functionality to operate correctly. Please ensure you clone and run the backend repository alongside the frontend.
+```bash
+# Using GitHub CLI
+gh repo clone kenkzuha/tracker-backend
+
+# Using Git
+git clone https://github.com/kenkzuha/tracker-backend
+```
+Check the [Backend Repository](https://github.com/kenkzuha/tracker-backend) for details
+
+---
+## Connect with Me
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kenkzuha)
+
+[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/kenkzuha)
+
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/kenkzuha)
 
 
 
-- 
 
-
-
-
-
-
-
-- This project was generated using Angular CLI version 21.1.2.
+> This project was generated using Angular CLI version 21.1.2.
