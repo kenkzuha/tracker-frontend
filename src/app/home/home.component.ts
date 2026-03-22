@@ -9,4 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class Home {
   constructor(private router: Router){}
+  logout(): void {
+    localStorage.removeItem('access_token');
+  }
 }
