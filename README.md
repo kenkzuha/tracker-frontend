@@ -50,6 +50,9 @@ npm i @angular/cli
 
 # Install the dependencies
 npm install
+
+# Run the project
+ng serve
 ```
 
 ### 3. Clone the Backend Repository
