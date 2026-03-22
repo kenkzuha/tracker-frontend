@@ -1,48 +1,52 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
-import { Auth } from '../auth.service';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Auth } from '../auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatButton, MatIconModule, MatInputModule, MatFormFieldModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-
 export class Login {
-  private formBuilder = inject(FormBuilder);
-  private authService = inject(Auth)
-  private router = inject(Router);
+  errorMessage = '';
+  isLoading = false;
+  isDark = true;
+  hidePassword = true;
+  loginForm: FormGroup;
 
-  errorMessage = signal('');
-  isLoading = signal(false);
-  successMessage = signal('');
+  constructor(private fb: FormBuilder, private router: Router, private authService: Auth) {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', Validators.required],
+    });
+  }
 
-  loginData = this.formBuilder.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+  toggleTheme(): void { this.isDark = !this.isDark; }
+  togglePassword(): void { this.hidePassword = !this.hidePassword; }
 
-  onSubmit(){
-    if(this.loginData.valid){
-      this.isLoading.set(true);
-      this.errorMessage.set('');
-      this.successMessage.set('');
+  onSubmit(): void {
+    if (this.loginForm.invalid) return;
 
-      this.authService.login(this.loginData.value).subscribe({
-        next: (res) => {
-          console.log(res.message);
-          this.successMessage.set(res.message)
-          this.isLoading.set(false);
-          this.router.navigate(['/dashboard']);
-        },
-        error: (err) => {
-          this.errorMessage.set(err.error?.message || 'Invalid Credentials');
-          this.isLoading.set(false);
-        },
-      });
-    }
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']); 
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        this.errorMessage = err.error.message || 'Login failed'; 
+      }
+    });
   }
 }

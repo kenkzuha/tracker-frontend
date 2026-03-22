@@ -1,1 +1,57 @@
-<button (click)="logout()">Logout</button>
+<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
+  <app-sidebar [isDark]="isDark"></app-sidebar>
+
+  <div class="main">
+    <app-topbar
+      [isDark]="isDark"
+      (themeToggle)="toggleTheme()">
+    </app-topbar>
+
+    <div class="content">
+
+
+      <div class="stats-grid">
+        @for (stat of stats; track stat.label) {
+          <app-stat-card
+            [label]="stat.label"
+            [value]="stat.value"
+            [change]="stat.change"
+            [positive]="stat.positive"
+            [isDark]="isDark">
+          </app-stat-card>
+        }
+      </div>
+
+
+      <div class="grid-2">
+        <div class="card" [class.dark]="isDark" [class.light]="!isDark">
+          <div class="card-header">
+            <span class="card-title">Portfolio Performance</span>
+            <span class="card-badge">1 Month</span>
+          </div>
+->
+          <p style="opacity:0.3;font-size:0.85rem">Chart coming soon...</p>
+        </div>
+
+        <div class="card" [class.dark]="isDark" [class.light]="!isDark">
+          <div class="card-header">
+            <span class="card-title">Holdings</span>
+            <span class="card-badge">7 Assets</span>
+          </div>
+
+          <p style="opacity:0.3;font-size:0.85rem">Holdings coming soon...</p>
+        </div>
+      </div>
+
+      <div class="card" [class.dark]="isDark" [class.light]="!isDark">
+        <div class="card-header">
+          <span class="card-title">Recent Transactions</span>
+          <span class="card-badge">This Week</span>
+        </div>
+
+        <p style="opacity:0.3;font-size:0.85rem">Transactions coming soon...</p>
+      </div>
+
+    </div>
+  </div>
+</div>

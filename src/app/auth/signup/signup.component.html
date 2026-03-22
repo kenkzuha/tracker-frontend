@@ -1,40 +1,65 @@
-<div class="utama">
-  <div class="card">
-    <h1>Signup</h1>  
-    <form [formGroup]="signupData" (ngSubmit)="onSubmit()" class="form-floating" >
-      <div class="form-floating ">
-        <input type="text" class="form-control username" id="floatingInput" placeholder="name@example.com" formControlName="username">
-        <label for="floatingInput">Username</label>
-        @if (signupData.get('username')?.invalid && signupData.get('username')?.touched) {
-      <span class="error">Username is required (min 3 characters)</span>
-    }
-      </div>
-      <div class="form-floating mb-3">
-        <input  type="email" class="form-control email" id="floatingInput" placeholder="name@example.com" formControlName="email">
-        <label for="floatingInput">Email address</label>
-        @if (signupData.get('email')?.invalid && signupData.get('email')?.touched) {
-      <span class="error">Email is required and must be valid</span>
-    }
-      </div>
-      <div class="form-floating">
-        <input  type="password" class="form-control password" id="floatingPassword" placeholder="Password" formControlName="password">
-        <label for="floatingPassword">Password</label>
-        @if (signupData.get('password')?.invalid && signupData.get('password')?.touched) {
-      <span class="error">Password is required (min 6 characters)</span>
-    }
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control password" id="confirmPassword" placeholder="Password" formControlName="confirmPassword">
-        @if (signupData.get('confirmPassword')?.invalid && signupData.get('confirmPassword')?.touched){
-          <span class="error">Please type your password again to confirm</span>
-        }
-        @if(signupData.hasError('passwordMismatch') && signupData.get('confirmPassword')?.touched){
-          <span class="error">Passwords do not match</span>
-        }
-        <label for="confirmPassword">Confirm Password</label>
-      </div>
+<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
+  <div class="orb-1"></div>
+  <div class="orb-2"></div>
 
-      <button class="btn btn-primary submitBtn" type="submit" [disabled]="signupData.invalid">Submit</button>
+  <button class="theme-toggle" (click)="toggleTheme()">
+    {{ isDark ? '☀️' : '🌙' }}
+  </button>
+
+  <div class="card" [class.dark]="isDark" [class.light]="!isDark">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      <span class="logo-text">CHAINFOLIO</span>
+    </div>
+
+    <h1 class="title">Create <span class="accent">Account</span></h1>
+    <p class="subtitle">Start tracking your portfolio today</p>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error *ngIf="signupForm.get('username')?.hasError('required')">Username is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email')">Invalid email</mat-error>
+      </mat-form-field>
+
+ 
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
+        <button matSuffix type="button" class="toggle-btn" (click)="togglePassword()">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">Minimum 6 characters</mat-error>
+      </mat-form-field>
+
+  
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirmPass" [type]="hideConfirm ? 'password' : 'text'" />
+        <button matSuffix type="button" class="toggle-btn" (click)="toggleConfirm()">
+          <mat-icon>{{ hideConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPass')?.touched">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <button mat-flat-button class="btn-primary" type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Creating account...' : 'Create Account' }}
+      </button>
+
     </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Login</a></p>
   </div>
-</div>  
+</div>

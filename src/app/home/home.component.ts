@@ -13,14 +13,16 @@ import { Auth } from '../auth/auth.service';
 })
 export class Home {
   isDark = true;
-  constructor(private authService: Auth){}
+  constructor(private authService: Auth, private router: Router){}
 
   toggleTheme(): void {
     this.isDark = !this.isDark;
   }
 
   ngOnInit(){
-    this.authService.isAuthenticated();
+    if(this.authService.isAuthenticated()){
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 }

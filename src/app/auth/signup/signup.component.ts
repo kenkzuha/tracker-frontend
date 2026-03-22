@@ -1,49 +1,65 @@
-import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../auth.service'; 
-import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Auth } from '../auth.service';
 
-
-function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-  if(password?.value !== confirmPassword?.value){
-    return { passwordMismatch: true }; 
-  }
-
-  return null
+function passwordMatchValidator(control: AbstractControl) {
+  const password = control.get('password')?.value;
+  const confirmPass = control.get('confirmPass')?.value;
+  return password === confirmPass ? null : { passwordMismatch: true };
 }
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatButton, MatIconModule, MatInputModule, MatFormFieldModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
-  standalone: true,
 })
-
 export class Signup {
-  private router = inject(Router);
-  private formBuilder = inject(FormBuilder);
-  private authService = inject(Auth)      
-  signupData = this.formBuilder.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
-  }, { validators: passwordMatchValidator });
+  isDark = true;
+  hidePassword = true;
+  hideConfirm = true;
+  isLoading = false;
+  errorMessage = '';
+  signupForm: FormGroup;
 
-  onSubmit() {
-    if(this.signupData.valid){
-      this.authService.signup(this.signupData.value).subscribe({
-        next: (response) => {
-          console.log('Signup successful', response);
-          this.router.navigate(['/login']);
-        },
-        error: (error) => console.error('Signup failed', error)
-      });
-    }
+  constructor(private fb: FormBuilder, private router: Router, private authService: Auth) {
+    this.signupForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPass: ['', Validators.required],
+    }, { validators: passwordMatchValidator });
+  }
+
+  toggleTheme(): void { this.isDark = !this.isDark; }
+  togglePassword(): void { this.hidePassword = !this.hidePassword; }
+  toggleConfirm(): void { this.hideConfirm = !this.hideConfirm; }
+
+  onSubmit(): void {
+    if (this.signupForm.invalid) return;
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    const { confirmPass, ...signupData } = this.signupForm.value;
+
+    this.authService.signup(signupData).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/login']);
+      },
+      error: (err: any) => {
+        console.log('error');
+        this.isLoading = false;
+        this.errorMessage = err.error.message || 'Signup failed';
+      }
+    });
   }
 }

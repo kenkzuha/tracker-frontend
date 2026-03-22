@@ -1,34 +1,43 @@
-<div class="utama">
-  <div class="card">
-    <h1>Login</h1>  
-    <form class="form-floating" [formGroup]="loginData" (ngSubmit)="onSubmit()">
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control email" id="floatingInput" placeholder="name@example.com" formControlName="username">
-        <label for="floatingInput">Username</label>
-        @if(loginData.get('identifier')?.invalid && loginData.get('invalid')?.touched){
-          <span class="error">Username is Required</span>
-        }
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control password" id="floatingPassword" placeholder="Password" formControlName="password">
-        <label for="floatingPassword">Password</label>
-        @if(loginData.get('password')?.invalid && loginData.get('password')?.touched){
-          <span class="error">Password is Required (min 6 characters)</span>
-        }
-      </div>
-      @if(errorMessage()){
-        <div class="alert alert-danger mt-3" role="alert">
-          {{ errorMessage() }}
-        </div>
-      }
-      <div class="links">
-        <a href="/accountRecovery">Forgot password?</a>
-        <a routerLink="/signup">Register now</a>
-      </div>
+<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
+  <div class="orb-1"></div>
+  <div class="orb-2"></div>
 
-      <button class="btn btn-primary submitBtn" type="submit" [disabled]="loginData.invalid || isLoading()">
-        {{ isLoading() ? 'Logging in...' : 'Submit' }}
+  <button class="theme-toggle" (click)="toggleTheme()">
+    {{ isDark ? '☀️' : '🌙' }}
+  </button>
+
+  <div class="card" [class.dark]="isDark" [class.light]="!isDark">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      <span class="logo-text">CHAINFOLIO</span>
+    </div>
+
+    <h1 class="title">Welcome <span class="accent">Back</span></h1>
+    <p class="subtitle">Sign in to continue tracking your assets</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Username</mat-label>
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Username is required</mat-error>
+        <input matInput formControlName="username" type="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
+        <button matSuffix type="button" class="toggle-btn" (click)="togglePassword()">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+      </mat-form-field>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button mat-flat-button class="btn-primary" type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Signing in...' : 'Sign In' }}
       </button>
     </form>
+
+    <p class="switch">Don't have an account? <a routerLink="/signup" class="accent">Sign Up</a></p>
   </div>
-</div>  
+</div>

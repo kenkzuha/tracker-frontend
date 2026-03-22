@@ -1,0 +1,10 @@
+<div class="stat-card" [class.dark]="isDark" [class.light]="!isDark">
+  <div class="stat-label">{{ label }}</div>
+  <div class="stat-value">{{ value }}</div>
+  <div class="stat-change"
+    [class.pos]="positive === true"
+    [class.neg]="positive === false"
+    [class.neutral]="positive === null">
+    {{ change }}
+  </div>
+</div>

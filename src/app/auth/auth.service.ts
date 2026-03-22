@@ -24,7 +24,7 @@ export interface SignupResponse {
 })
 export class Auth {
   private backendUrl = 'http://localhost:3000';
-  constructor(private http: HttpClient, private router: Router, private guard: AuthGuard){}
+  constructor(private http: HttpClient, private router: Router){}
 
   signup(data: any): Observable<SignupResponse>{
     return this.http.post<SignupResponse>(`${this.backendUrl}/auth/signup`, data);
@@ -40,13 +40,9 @@ export class Auth {
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem('access_token');
-
-    if (token) {
-      this.router.navigate(['/dashboard']);
-    }
+    return !!localStorage.getItem('access_token');
   }
-  
+
   logout(){
     localStorage.removeItem('access_token');
     this.router.navigate(['/']);

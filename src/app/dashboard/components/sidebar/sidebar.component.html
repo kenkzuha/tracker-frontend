@@ -1,0 +1,22 @@
+<div class="sidebar" [class.dark]="isDark" [class.light]="!isDark">
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span class="logo-text">CHAINFOLIO</span>
+  </div>
+
+  <nav class="nav">
+    @for (item of navItems; track item.route) {
+      <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+        {{ item.label }}
+      </a>
+    }
+  </nav>
+
+  <div class="nav-bottom">
+    @for (item of bottomItems; track item.route) {
+      <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+        {{ item.label }}
+      </a>
+    }
+  </div>
+</div>
