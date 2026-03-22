@@ -50,12 +50,14 @@ npm i @angular/cli
 
 # Install the dependencies
 npm install
+```
 
-# Run the project
+### 3. Run the Project
+```bash
 ng serve
 ```
 
-### 3. Clone the Backend Repository
+### 4. Clone the Backend Repository
 The backend service must be running for authentication and core functionality to operate correctly. Please ensure you clone and run the backend repository alongside the frontend.
 ```bash
 # Using GitHub CLI
