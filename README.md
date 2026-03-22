@@ -42,29 +42,20 @@ An open source crypto & stock portfolio tracker built with Angular and NestJS.
 ```
 chainfolio/
 ├── tracker-frontend/         # Angular app
-│   └── src/app/
-│       ├── core/             # Guards, interceptors
-│       │   ├── auth.guard.ts
-│       │   ├── guest.guard.ts
-│       │   └── auth.interceptor.ts
-│       ├── auth/             # Auth feature
-│       │   ├── login/
-│       │   ├── signup/
-│       │   └── auth.service.ts
-│       ├── dashboard/        # Dashboard feature
-│       │   └── components/
-│       │       ├── sidebar/
-│       │       ├── topbar/
-│       │       └── stat-card/
-│       └── home/             # Landing page
-│
-└── tracker-backend/          # NestJS app
-    └── src/
-        ├── auth/             # Auth module (login, signup, JWT)
-        ├── users/            # Users module
-        ├── prices/           # Yahoo Finance price fetching
-        ├── dashboard/        # Dashboard module
-        └── migrations/       # TypeORM migrations
+   └── src/app/
+       ├── core/             # Guards, interceptors
+       │   ├── auth.guard.ts
+       │   └── auth.interceptor.ts
+       ├── auth/             # Auth feature
+       │   ├── login/
+       │   ├── signup/
+       │   └── auth.service.ts
+       ├── dashboard/        # Dashboard feature
+       │   └── components/
+       │       ├── sidebar/
+       │       ├── topbar/
+       │       └── stat-card/
+       └── home/             # Landing page
 ```
 
 ---
@@ -80,30 +71,7 @@ chainfolio/
 
 ### Backend Setup
 
-> Please clone and run the [Backend](https://github.com/kenkzuha/tracker-backend) first.
-
-```bash
-cd tracker-backend
-npm install
-```
-
-Create a `.env` file:
-```env
-DATABASE_URL=your-url-here
-JWT_TOKEN=your-jwt-secret-key-here
-```
-
-Run migrations:
-```bash
-npm run migration:run
-```
-
-Start the server:
-```bash
-npm run start:dev
-```
-
-Backend runs on `http://localhost:3000`
+> Please check [Backend Repository](https://github.com/kenkzuha/tracker-backend) for setup details.
 
 ---
 
