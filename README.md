@@ -31,8 +31,13 @@ A modern, lightweight portfolio tracking web application designed to help users 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/portfolio-tracker.git
-cd portfolio-tracker
+# Using GitHub CLI
+gh repo clone kenkzuha/tracker-frontend.git
+cd tracker-frontend
+
+# Using Git
+git clone https://github.com/kenkzuha/tracker-frontend.git
+cd tracker-frontend
 ```
 
 ### 2. Install dependencies
@@ -52,9 +57,11 @@ The backend service must be running for authentication and core functionality to
 ```bash
 # Using GitHub CLI
 gh repo clone kenkzuha/tracker-backend
+cd tracker-backend
 
 # Using Git
 git clone https://github.com/kenkzuha/tracker-backend
+cd tracker-backend
 ```
 Check the [Backend Repository](https://github.com/kenkzuha/tracker-backend) for details
 
