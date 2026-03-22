@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthGuard } from './core/auth.guard';
 
 export interface LoginResponse {
   message: '',
