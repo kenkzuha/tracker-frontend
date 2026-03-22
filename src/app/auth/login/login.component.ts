@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { Auth } from '../auth/auth.service';
+import { Auth } from '../auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -36,9 +36,7 @@ export class Login {
           console.log(res.message);
           this.successMessage.set(res.message)
           this.isLoading.set(false);
-          setTimeout(() => {
-            this.router.navigate(['/dashboard'])
-          })
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           this.errorMessage.set(err.error?.message || 'Invalid Credentials');

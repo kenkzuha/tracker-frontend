@@ -1,4 +1,40 @@
-<div class="center">
-  <button routerLink="/login">Login</button>
-  <button routerLink="/signup">Signup</button>
+<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
+  <button class="theme-toggle" (click)="toggleTheme()">
+    {{ isDark ? '☀️' : '🌙' }}
+  </button>
+
+  <div class="hero">
+    <div class="badge">LIVE PRICES</div>
+    <h1 class="title">
+      Track Your <br>
+      <span class="accent">Crypto & Stocks</span><br>
+      Portfolio
+    </h1>
+    <p class="subtitle">
+      Real-time insights. Clean analytics. <br>
+      All your assets in one place.
+    </p>
+
+    <div class="actions">
+      <button mat-flat-button class="btn-primary" routerLink="/signup">Get Started</button>
+      <button mat-stroked-button class="btn-secondary" routerLink="/login">Login</button>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>BTC $67,420 ▲2.4%</span>
+      <span>ETH $3,510 ▲1.1%</span>
+      <span>AAPL $189.30 ▼0.3%</span>
+      <span>SOL $172.50 ▲5.2%</span>
+      <span>TSLA $248.10 ▲1.8%</span>
+      <span>BNB $412.00 ▲0.9%</span>
+      <span>BTC $67,420 ▲2.4%</span>
+      <span>ETH $3,510 ▲1.1%</span>
+      <span>AAPL $189.30 ▼0.3%</span>
+      <span>SOL $172.50 ▲5.2%</span>
+      <span>TSLA $248.10 ▲1.8%</span>
+      <span>BNB $412.00 ▲0.9%</span>
+    </div>
+  </div>
 </div>

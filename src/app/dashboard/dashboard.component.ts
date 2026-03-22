@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { Auth } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,8 @@ import { RouterModule, Router } from '@angular/router';
   styleUrl: './dashboard.component.css',
 })
 export class Dashboard {
-  constructor(private router: Router){}
+  constructor(private authService: Auth){}
   logout(){
-    localStorage.removeItem('access_token');
-    this.router.navigate(['/']);
+    this.authService.logout();
   }
 }

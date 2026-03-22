@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../auth/auth.service'; 
+import { Auth } from '../auth.service'; 
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
@@ -40,9 +40,7 @@ export class Signup {
       this.authService.signup(this.signupData.value).subscribe({
         next: (response) => {
           console.log('Signup successful', response);
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          })
+          this.router.navigate(['/login']);
         },
         error: (error) => console.error('Signup failed', error)
       });

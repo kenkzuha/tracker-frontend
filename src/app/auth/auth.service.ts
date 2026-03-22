@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthGuard } from './core/auth.guard';
 
 export interface LoginResponse {
   message: '',
@@ -22,7 +24,7 @@ export interface SignupResponse {
 })
 export class Auth {
   private backendUrl = 'http://localhost:3000';
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private router: Router, private guard: AuthGuard){}
 
   signup(data: any): Observable<SignupResponse>{
     return this.http.post<SignupResponse>(`${this.backendUrl}/auth/signup`, data);
@@ -35,6 +37,19 @@ export class Auth {
           localStorage.setItem('access_token', res.access_token);
         })
       );
+  }
+
+  isAuthenticated() {
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+  
+  logout(){
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/']);
   }
 
 }
