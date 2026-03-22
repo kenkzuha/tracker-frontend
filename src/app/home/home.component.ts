@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
-  imports: [RouterModule],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class Home {
   constructor(private router: Router){}
-  logout(): void {
-    localStorage.removeItem('access_token');
-  }
+
 }

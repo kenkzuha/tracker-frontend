@@ -37,7 +37,7 @@ export class Login {
           this.successMessage.set(res.message)
           this.isLoading.set(false);
           setTimeout(() => {
-            this.router.navigate(['/'])
+            this.router.navigate(['/dashboard'])
           })
         },
         error: (err) => {
