@@ -1,9 +1,6 @@
-<div class="topbar" [class.dark]="isDark" [class.light]="!isDark">
+<div class="topbar">
   <span class="title">Portfolio Overview</span>
   <div class="right">
-    <button class="toggle-btn" (click)="toggle()">
-      {{ isDark ? '☀️ Light' : '🌙 Dark' }}
-    </button>
     <button class="logout-btn" (click)="logout()">Logout</button>
     <div class="avatar">KZ</div>
   </div>

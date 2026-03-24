@@ -17,7 +17,7 @@ function passwordMatchValidator(control: AbstractControl) {
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatButton, MatIconModule, MatInputModule, MatFormFieldModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatIconModule, MatInputModule, MatFormFieldModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -36,6 +36,12 @@ export class Signup {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPass: ['', Validators.required],
     }, { validators: passwordMatchValidator });
+  }
+
+  ngOnInit() {
+    if(this.authService.isAuthenticated()){
+      this.router.navigate(['/dashboard'])
+    }
   }
 
   toggleTheme(): void { this.isDark = !this.isDark; }

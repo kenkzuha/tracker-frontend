@@ -1,42 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=DM+Sans:wght@300;400&display=swap');
+
 .stat-card {
-  border-radius: 14px;
-  padding: 18px;
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
   animation: fadeUp 0.5s ease both;
 }
 
-.stat-card.dark {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-}
-
-.stat-card.light {
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(120,80,220,0.3),
+    rgba(60,160,255,0.3),
+    transparent
+  );
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .stat-label {
-  font-size: 0.72rem;
-  opacity: 0.45;
-  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: rgba(160,150,200,0.4);
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .stat-value {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ddd8f0;
   line-height: 1;
   margin-bottom: 6px;
 }
 
-.stat-change { font-size: 0.75rem; }
-.pos { color: #00e6aa; }
-.neg { color: #ff5a5a; }
-.neutral { opacity: 0.4; }
+.stat-change { font-size: 0.72rem; }
+.pos { color: #70c8a0; }
+.neg { color: #c07070; }
+.neutral { color: rgba(160,150,200,0.4); }

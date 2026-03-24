@@ -1,56 +1,91 @@
-<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
-  <app-sidebar [isDark]="isDark"></app-sidebar>
+<div class="wrapper">
+  <div class="orb-purple"></div>
+  <div class="orb-blue"></div>
+  <app-sidebar></app-sidebar>
 
   <div class="main">
-    <app-topbar
-      [isDark]="isDark"
-      (themeToggle)="toggleTheme()">
-    </app-topbar>
+    <app-topbar></app-topbar>
 
     <div class="content">
 
+      @if (isLoading) {
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>Loading your portfolio...</p>
+        </div>
+      }
 
-      <div class="stats-grid">
-        @for (stat of stats; track stat.label) {
-          <app-stat-card
-            [label]="stat.label"
-            [value]="stat.value"
-            [change]="stat.change"
-            [positive]="stat.positive"
-            [isDark]="isDark">
-          </app-stat-card>
-        }
-      </div>
-
-
-      <div class="grid-2">
-        <div class="card" [class.dark]="isDark" [class.light]="!isDark">
-          <div class="card-header">
-            <span class="card-title">Portfolio Performance</span>
-            <span class="card-badge">1 Month</span>
-          </div>
-->
-          <p style="opacity:0.3;font-size:0.85rem">Chart coming soon...</p>
+      @if (!isLoading) {
+        <div class="stats-grid">
+          @for (stat of stats; track stat.label) {
+            <app-stat-card
+              [label]="stat.label"
+              [value]="stat.value"
+              [change]="stat.change"
+              [positive]="stat.positive">
+            </app-stat-card>
+          }
         </div>
 
-        <div class="card" [class.dark]="isDark" [class.light]="!isDark">
-          <div class="card-header">
-            <span class="card-title">Holdings</span>
-            <span class="card-badge">7 Assets</span>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Portfolio Performance</span>
+            </div>
+            <app-chart [symbol]="assets.length > 0 ? assets[0].symbol : 'BTC-USD'">
+            </app-chart>
           </div>
 
-          <p style="opacity:0.3;font-size:0.85rem">Holdings coming soon...</p>
-        </div>
-      </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Holdings</span>
+              <span class="card-badge">{{ assets.length }} Assets</span>
+            </div>
 
-      <div class="card" [class.dark]="isDark" [class.light]="!isDark">
-        <div class="card-header">
-          <span class="card-title">Recent Transactions</span>
-          <span class="card-badge">This Week</span>
+            @if (assets.length === 0) {
+              <p class="empty">No assets yet. Add some to get started!</p>
+            }
+
+            @for (asset of assets; track asset.id) {
+              <div class="asset-row">
+                <div class="asset-icon" [style.background]="getAssetColor(asset.type)">
+                  {{ asset.symbol.slice(0, 3) }}
+                </div>
+                <div class="asset-info">
+                  <p class="asset-name">{{ asset.name }}</p>
+                  <span class="asset-qty">{{ asset.quantity }} {{ asset.symbol }}</span>
+                </div>
+                <div class="asset-price">
+                  <p class="asset-val">
+                    ${{ getAssetCurrentValue(asset).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
+                  </p>
+                  <span class="asset-chg"
+                    [class.pos]="getAssetChangePercent(asset) >= 0"
+                    [class.neg]="getAssetChangePercent(asset) < 0">
+                    {{ getAssetChangePercent(asset) >= 0 ? '▲' : '▼' }}
+                    {{ getAssetChangePercent(asset) | number: '1.2-2' }}%
+                  </span>
+                </div>
+                <div class="asset-pnl">
+                  <p [class.pos]="getAssetProfitLoss(asset) >= 0"
+                     [class.neg]="getAssetProfitLoss(asset) < 0">
+                    {{ getAssetProfitLoss(asset) >= 0 ? '+' : '' }}${{ getAssetProfitLoss(asset) | number: '1.2-2' }}
+                  </p>
+                  <span>P&L</span>
+                </div>
+              </div>
+            }
+          </div>
         </div>
 
-        <p style="opacity:0.3;font-size:0.85rem">Transactions coming soon...</p>
-      </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Recent Transactions</span>
+            <span class="card-badge">This Week</span>
+          </div>
+          <p class="empty">Transactions coming soon...</p>
+        </div>
+      }
 
     </div>
   </div>

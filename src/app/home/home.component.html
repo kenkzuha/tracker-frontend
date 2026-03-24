@@ -1,40 +1,79 @@
-<div class="wrapper" [class.dark]="isDark" [class.light]="!isDark">
-  <button class="theme-toggle" (click)="toggleTheme()">
-    {{ isDark ? '☀️' : '🌙' }}
-  </button>
+<div class="wrapper">
+  <div class="moon-large"></div>
+  <div class="moon-ring"></div>
+  <div class="stars"></div>
+  <div class="mist"></div>
+
+  <div class="particles">
+    @for (p of particles; track p) {
+      <div class="particle" [style]="p"></div>
+    }
+  </div>
+
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-moon"></div>
+      <span class="logo-text">LUNAVEST</span>
+    </div>
+  </nav>
 
   <div class="hero">
-      <div class="badge">CHAINFOLIO</div>
+    <div class="eyebrow">LunaVest Portfolio Tracker</div>
+
     <h1 class="title">
-      <span class="accent">Chainfolio</span><br>
-      Track Your Crypto<br>
-      & Stocks Portfolio
+      Invest Under<br/>
+      <span class="title-glow">Moonlit Skies</span>
     </h1>
+
     <p class="subtitle">
-      Real-time insights. Clean analytics. <br>
-      All your assets in one place.
+      Track your crypto & stocks with celestial precision.<br/>
+      Real-time insights. Ethereal design.
     </p>
 
     <div class="actions">
-      <button mat-flat-button class="btn-primary" routerLink="/signup">Get Started</button>
-      <button mat-stroked-button class="btn-secondary" routerLink="/login">Login</button>
+      <button class="btn-primary" (click)="goToSignup()">
+        Begin Your Journey
+        <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn-ghost" (click)="goToLogin()">
+        Sign In
+      </button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-value">100+</span>
+        <span class="stat-label">Assets</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">100</span>
+        <span class="stat-label">Users</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">99.9%</span>
+        <span class="stat-label">Uptime</span>
+      </div>
     </div>
   </div>
 
   <div class="ticker">
     <div class="ticker-track">
-      <span>BTC $67,420 ▲2.4%</span>
-      <span>ETH $3,510 ▲1.1%</span>
-      <span>AAPL $189.30 ▼0.3%</span>
-      <span>SOL $172.50 ▲5.2%</span>
-      <span>TSLA $248.10 ▲1.8%</span>
-      <span>BNB $412.00 ▲0.9%</span>
-      <span>BTC $67,420 ▲2.4%</span>
-      <span>ETH $3,510 ▲1.1%</span>
-      <span>AAPL $189.30 ▼0.3%</span>
-      <span>SOL $172.50 ▲5.2%</span>
-      <span>TSLA $248.10 ▲1.8%</span>
-      <span>BNB $412.00 ▲0.9%</span>
+      <span class="tick pos">BTC $71,263 ▲3.55%</span>
+      <span class="tick pos">ETH $3,510 ▲1.12%</span>
+      <span class="tick neg">BBCA.JK $6,775 ▼0.37%</span>
+      <span class="tick pos">SOL $172.50 ▲5.2%</span>
+      <span class="tick pos">AAPL $252.53 ▲1.83%</span>
+      <span class="tick neg">TSLA $248.10 ▼0.5%</span>
+      <span class="tick pos">BNB $412.00 ▲0.9%</span>
+      <span class="tick pos">BTC $71,263 ▲3.55%</span>
+      <span class="tick pos">ETH $3,510 ▲1.12%</span>
+      <span class="tick neg">BBCA.JK $6,775 ▼0.37%</span>
+      <span class="tick pos">SOL $172.50 ▲5.2%</span>
+      <span class="tick pos">AAPL $252.53 ▲1.83%</span>
+      <span class="tick neg">TSLA $248.10 ▼0.5%</span>
+      <span class="tick pos">BNB $412.00 ▲0.9%</span>
     </div>
   </div>
 </div>

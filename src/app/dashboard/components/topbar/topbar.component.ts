@@ -10,14 +10,8 @@ import { Auth } from '../../../auth/auth.service';
   styleUrl: './topbar.component.css',
 })
 export class Topbar {
-  @Input() isDark = true;
-  @Output() themeToggle = new EventEmitter<void>();
 
   constructor(private auth: Auth) {}
-
-  toggle(): void {
-    this.themeToggle.emit();
-  }
 
   logout(): void {
     this.auth.logout();

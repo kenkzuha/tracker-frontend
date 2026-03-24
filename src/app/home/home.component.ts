@@ -1,28 +1,47 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CommonModule, MatButtonModule, MatIconModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class Home {
-  isDark = true;
-  constructor(private authService: Auth, private router: Router){}
+  constructor(private router: Router, private authService: Auth) {}
 
-  toggleTheme(): void {
-    this.isDark = !this.isDark;
+  particles = Array.from({ length: 30 }, () => {
+    const size = Math.random() * 3 + 1;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const duration = Math.random() * 6 + 4;
+    const delay = Math.random() * 5;
+    const opacity = Math.random() * 0.5 + 0.1;
+    return `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${x}%;
+      top: ${y}%;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      opacity: ${opacity};
+    `;
+  });
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 
-  ngOnInit(){
+  goToSignup(): void {
+    this.router.navigate(['/signup']);
+  }
+
+  ngOnInit() {
     if(this.authService.isAuthenticated()){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'])
     }
   }
-
 }

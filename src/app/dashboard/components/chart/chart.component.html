@@ -1,0 +1,18 @@
+<div class="chart-wrapper" [class.dark]="isDark" [class.light]="!isDark">
+  <div class="chart-header">
+    <div class="ranges">
+      @for (range of ranges; track range) {
+        <button
+          class="range-btn"
+          [class.active]="activeRange === range"
+          (click)="setRange(range)">
+          {{ range }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas #chartCanvas></canvas>
+  </div>
+</div>
